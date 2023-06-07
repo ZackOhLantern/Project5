@@ -196,14 +196,37 @@ void BinarySearchTree<Item>::preorder(Node<Item>* node, std::function<void(Node<
 // to the rules of the BST.  
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
-	//node is root
+	//node is root!
+
+	//root = insert(root, item);
+
 	if (node == nullptr) {
 		node = new Node<Item>;
 		node->item(item);
-
 		return node;
 	}
 
+	if (node->item() == item) {
+		return node;
+	}
+
+	if (node->item() > item) {
+		if (node->left() == nullptr) 
+		{
+			node->left(new Node<Item>);
+			node->left()->item(item);
+			return node;
+		}
+	}
+
+	if (node->item() < item) {
+		if (node->right() == nullptr)
+		{
+			node->right(new Node<Item>);
+			node->right()->item(item);
+			return node;
+		}
+	}
 	//if (node == nullptr) {
 	//	Node<Item>* ptr = new Node<Item>();
 
@@ -244,16 +267,26 @@ bool BinarySearchTree<Item>::search(Node<Item>* node, Item item) const {
 // An empty tree has height 0;
 template<typename Item>
 int	BinarySearchTree<Item>::height(Node<Item>* node) const {
-	if (node == nullptr)
-		return 0;
 
 	int counter = 1;
-	while ((node->left()) != nullptr) {
-		node = node->left();
-		counter++;
-		
+
+	if (node == nullptr) {
+		return 0;
 	}
-	return counter;
+
+	
+	if (node->left() != nullptr) {
+		//node = node->left();
+		
+		int answer = counter + height(node->left());
+		return answer;
+	}
+
+	if (node->left() == nullptr && node->right() == nullptr) {
+		return counter;
+	}
+
+	//return counter;
 }
 
 // BinarySearchTree<Item>::min recursively obtain the node with the minimum item
@@ -277,11 +310,10 @@ Node<Item>* BinarySearchTree<Item>::min(Node<Item>* node) const {
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 
-
 	if (node == nullptr)
 		return nullptr;
 
-	if (node->left() != nullptr) {
+	if (node->right() != nullptr) {
 		max(node->right());
 	}
 
