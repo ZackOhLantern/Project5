@@ -422,7 +422,45 @@ void BinarySearchTree<Item>::printTree(Node<Item>* node, int space) const {
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::remove(Node<Item>* node, Item item) {
 
-	//******** TODO *********
+	//////////////////////////////
+	//root = remove(root, item);//
+	//////////////////////////////
+
+	if (node == nullptr)
+		return false;
+
+	if (node->item() == item) {
+		if (node->right() == nullptr && node->left == nullptr) {
+			delete node;
+			return nullptr;
+		}
+		else {
+			return node;
+		}
+		//IF (ROOT){}
+
+		return node;
+	}
+
+	if (node->right() != nullptr) {
+		node->right() = remove(node->right(), item);
+
+		if(node->right() == nullptr){
+			return node;
+			
+		}
+	}
+
+	/*if (node->left() != nullptr) {
+		bool answer = search(node->left(), item);
+		if (answer) {
+			return answer;
+		}
+	}*/
+
+
+
+
 	return nullptr;
 }
 
