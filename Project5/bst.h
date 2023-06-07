@@ -358,6 +358,7 @@ Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 template<typename Item>
 void BinarySearchTree<Item>::printTree(Node<Item>* node, int space) const {
 
+	static const int maxHeight = height(node) +1;  //this should be a pointer instead i think. new/delete
 	if (node == nullptr) {
 		return;
 	}
@@ -374,12 +375,21 @@ void BinarySearchTree<Item>::printTree(Node<Item>* node, int space) const {
 	if (node->right() != nullptr) {
 		printTree(node->right(), space);
 
-		if (node->right() == nullptr) {
-			std::cout << node;
-		}
+	
 
 	}
 
+	for (int i = 0; i < (maxHeight - height(node)); i++) {
+		std::cout << "    ";
+	}
+	std::cout << node->item() << std::endl;
+
+	if (node->left() != nullptr) {
+		printTree(node->left(), space);
+
+
+
+	}
 
 
 }

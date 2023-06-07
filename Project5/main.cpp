@@ -192,6 +192,7 @@ int main() {
 								//			7	
 								//		6
 								//			3
+			cout << endl << "check"; /////////////delete///////////
 			break;
 		}
 		case 11: {
