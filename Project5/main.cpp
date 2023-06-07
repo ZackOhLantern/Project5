@@ -31,9 +31,9 @@ int main() {
 			bst.insert(8);
 			cout << bst.empty() << endl;	// 0
 			cout << bst.height() << endl;	// 1
-			//cout << bst.min() << endl;		// 8
-			//cout << bst.max() << endl;		// 8
-			//cout << endl;
+			cout << bst.min() << endl;		// 8
+			cout << bst.max() << endl;		// 8
+			cout << endl;
 			break;
 		}
 		case 2: {

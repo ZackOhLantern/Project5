@@ -247,29 +247,48 @@ int	BinarySearchTree<Item>::height(Node<Item>* node) const {
 	if (node == nullptr)
 		return 0;
 
-	int counter = 0;
+	int counter = 1;
 	while ((node->left()) != nullptr) {
-		height(node);
+		node = node->left();
 		counter++;
+		
 	}
-
-	//******** TODO *********
 	return counter;
 }
+
 // BinarySearchTree<Item>::min recursively obtain the node with the minimum item
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::min(Node<Item>* node) const {
 
-	//******** TODO *********
-	return nullptr;
+	if (node == nullptr)
+		return nullptr;
+
+	if (node->left() != nullptr) {
+		min(node->left());
+	}
+
+	if (node->left() == nullptr) {
+		return node;
+	}
+
 }
 
 // BinarySearchTree<Item>::max recursively obtain the node with the minimum item
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 
-	//******** TODO *********
-	return nullptr;
+
+	if (node == nullptr)
+		return nullptr;
+
+	if (node->left() != nullptr) {
+		max(node->right());
+	}
+
+	if (node->right() == nullptr) {
+		return node;
+	}
+
 }
 
 // BinarySearchTree<Item>::printTree
