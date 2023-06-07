@@ -275,24 +275,33 @@ template<typename Item>
 int	BinarySearchTree<Item>::height(Node<Item>* node) const {
 
 	int counter = 1;
+	int leftanswer = 0;
+	int rightanswer = 0;
 
 	if (node == nullptr) {
 		return 0;
 	}
 
-	
+	if (node->right() != nullptr) {
+		rightanswer = counter + height(node->right());
+	}
+
 	if (node->left() != nullptr) {
-		//node = node->left();
-		
-		int answer = counter + height(node->left());
-		return answer;
+		leftanswer =  counter + height(node->left());
+
 	}
 
-	if (node->left() == nullptr && node->right() == nullptr) {
-		return counter;
+	if ((node->left() == nullptr) && (node->right() == nullptr)) {
+		return 1;
 	}
 
-	//return counter;
+	if (leftanswer < rightanswer) {
+		return rightanswer;
+	}
+	if (leftanswer > rightanswer) {
+		return leftanswer;
+	}
+
 }
 
 // BinarySearchTree<Item>::min recursively obtain the node with the minimum item
@@ -349,7 +358,29 @@ Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 template<typename Item>
 void BinarySearchTree<Item>::printTree(Node<Item>* node, int space) const {
 
-	//******** TODO *********
+	if (node == nullptr) {
+		return;
+	}
+
+	//////////////////////////////////
+	//if (node == nullptr)			//
+	//	return;						//
+	//								//
+	//revorder(node->right(), proc);//
+	//proc(node);					//
+	//revorder(node->left(), proc);	//
+	//////////////////////////////////
+
+	if (node->right() != nullptr) {
+		printTree(node->right(), space);
+
+		if (node->right() == nullptr) {
+			std::cout << node;
+		}
+
+	}
+
+
 
 }
 
