@@ -217,6 +217,8 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 			node->left()->item(item);
 			return node;
 		}
+		insert(node->left(), item);
+		return node;
 	}
 
 	if (node->item() < item) {
@@ -226,6 +228,8 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 			node->right()->item(item);
 			return node;
 		}
+		insert(node->right(), item);
+		return node;
 	}
 	//if (node == nullptr) {
 	//	Node<Item>* ptr = new Node<Item>();
@@ -251,7 +255,7 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 	//}
 
 	//******** TODO *********
-	return nullptr;
+	return node;
 }
 
 // BinarySearchTree<Item>::search recursively searches the tree for item.
@@ -297,7 +301,7 @@ Node<Item>* BinarySearchTree<Item>::min(Node<Item>* node) const {
 		return nullptr;
 
 	if (node->left() != nullptr) {
-		min(node->left());
+		return min(node->left());
 	}
 
 	if (node->left() == nullptr) {
@@ -314,7 +318,7 @@ Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 		return nullptr;
 
 	if (node->right() != nullptr) {
-		max(node->right());
+		return max(node->right());
 	}
 
 	if (node->right() == nullptr) {

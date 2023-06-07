@@ -108,9 +108,9 @@ int main() {
 			bst.insert(10);
 			bst.insert(20);
 			cout << bst.empty() << endl;	// 0
-			//cout << bst.height() << endl;	// 3
-			//cout << bst.min() << endl;		// 3
-			//cout << bst.max() << endl;		// 20
+			cout << bst.height() << endl;	// 3
+			cout << bst.min() << endl;		// 3
+			cout << bst.max() << endl;		// 20
 			break;
 		}
 		case 6: {
