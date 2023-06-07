@@ -198,17 +198,27 @@ template<typename Item>
 Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 	//node is root
 	if (node == nullptr) {
-		node->item(item);
-		return node;
+		Node node(item, nullptr, nullptr);
+
+		return nullptr;
 	}
 
-	else if (node->left()->item() < item) {
-		insert(node->right(), item);
-	}
+	// if (node->left()->item() < item) {
+	//	insert(node->right(), item);
+	//	return nullptr;
+	//}
 
-	else if (node->right()->item() > item) {
-		insert(node->left(), item);
-	}
+	//else if (node->right()->item() > item) {
+	//	insert(node->left(), item);
+	//	return nullptr;
+	//}
+
+	// if (node->left() == nullptr) {
+	//	 new *Node nnode = Node();
+	//	 node->right() = nnode;
+	//	 node->right()->item(item);
+	//	 return nullptr;
+	//}
 
 	//******** TODO *********
 	return nullptr;
