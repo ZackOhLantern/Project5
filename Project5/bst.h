@@ -178,7 +178,11 @@ void BinarySearchTree<Item>::inorder(Node<Item>* node, std::function<void(Node<I
 template<typename Item>
 void BinarySearchTree<Item>::postorder(Node<Item>* node, std::function<void(Node<Item>*)> proc) {
 
-	//******** TODO *********
+	if (node == nullptr)
+		return;
+	postorder(node->left(), proc);
+	postorder(node->right(), proc);
+	proc(node);
 
 }
 template<typename Item>
@@ -231,30 +235,7 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 		insert(node->right(), item);
 		return node;
 	}
-	//if (node == nullptr) {
-	//	Node<Item>* ptr = new Node<Item>();
-
-	//	return ptr;
-	//}
-
-	// if (node->left()->item() < item) {
-	//	insert(node->right(), item);
-	//	return nullptr;
-	//}
-
-	//else if (node->right()->item() > item) {
-	//	insert(node->left(), item);
-	//	return nullptr;
-	//}
-
-	// if (node->left() == nullptr) {
-	//	 new *Node nnode = Node();
-	//	 node->right() = nnode;
-	//	 node->right()->item(item);
-	//	 return nullptr;
-	//}
-
-	//******** TODO *********
+	
 	return node;
 }
 
@@ -262,8 +243,29 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 template<typename Item>
 bool BinarySearchTree<Item>::search(Node<Item>* node, Item item) const {
 
-	//******** TODO *********
-	return false;
+
+	if (node == nullptr)
+		return false;
+
+	if (node->item() == item) {
+		return true;
+	}
+
+	if (node->left() != nullptr) {
+		bool answer = search(node->left(), item);
+		if (answer) {
+			return answer;
+		}
+	}
+
+	if (node->right() != nullptr) {
+		bool answer = search(node->right(), item);
+		if (answer) {
+			return answer;
+		}
+	}
+
+	//return false;
 }
 
 // BinarySearchTree<Item>::height

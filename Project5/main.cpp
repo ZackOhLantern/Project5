@@ -158,7 +158,15 @@ int main() {
 			bst.insert(7);
 			bst.insert(10);
 			bst.insert(20);
-			cout << bst.search(6) << endl;		// 1
+			cout << bst.search(6) << endl;	// 1
+
+			cout << bst.search(8) << endl;	
+			cout << bst.search(3) << endl;	
+			cout << bst.search(7) << endl;	
+			cout << bst.search(13) << endl;	
+			cout << bst.search(10) << endl;	
+			cout << bst.search(20) << endl;	
+
 			cout << bst.search(999) << endl;	// 0
 			break;
 		}
