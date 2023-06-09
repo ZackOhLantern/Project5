@@ -200,9 +200,10 @@ void BinarySearchTree<Item>::preorder(Node<Item>* node, std::function<void(Node<
 // to the rules of the BST.  
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
-	//node is root!
+	//node is root!////////////
 
-	//root = insert(root, item);
+	//root = insert(root, item);////////
+
 
 	if (node == nullptr) {
 		node = new Node<Item>;
@@ -236,7 +237,31 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 		return node;
 	}
 	
-	return node;
+	//if (node == nullptr) {
+	//	node = new Node<Item>(item, nullptr, nullptr);
+	//	return node;
+	//}
+	//if (item == node->item()) {
+	//	return node;
+	//}
+	//if (item < node->item()) {
+	//	insert(node->left(), item);
+
+
+
+
+	//	return node;
+	//}
+	//else if (item > node->item()) {
+	//	insert(node->right(), item);
+
+
+
+
+	//	return node;
+	//}
+
+	return root;
 }
 
 // BinarySearchTree<Item>::search recursively searches the tree for item.
@@ -288,7 +313,6 @@ int	BinarySearchTree<Item>::height(Node<Item>* node) const {
 
 	if (node->left() != nullptr) {
 		leftanswer =  counter + height(node->left());
-
 	}
 
 	if ((node->left() == nullptr) && (node->right() == nullptr)) {
@@ -358,39 +382,26 @@ Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 template<typename Item>
 void BinarySearchTree<Item>::printTree(Node<Item>* node, int space) const {
 
-	static const int maxHeight = height(node) +1;  //this should be a pointer instead i think. new/delete
+	//static const int maxHeight = height(node) +1;  //this should be a pointer instead i think. new/delete
 	if (node == nullptr) {
 		return;
 	}
 
-	//////////////////////////////////
-	//if (node == nullptr)			//
-	//	return;						//
-	//								//
-	//revorder(node->right(), proc);//
-	//proc(node);					//
-	//revorder(node->left(), proc);	//
-	//////////////////////////////////
+	space = space + 3;
 
 	if (node->right() != nullptr) {
 		printTree(node->right(), space);
-
-	
-
 	}
 
-	for (int i = 0; i < (maxHeight - height(node)); i++) {
-		std::cout << "    ";
+	for (int i = 0; i < (space); i++) {
+			std::cout << " ";
 	}
+
 	std::cout << node->item() << std::endl;
 
 	if (node->left() != nullptr) {
 		printTree(node->left(), space);
-
-
-
 	}
-
 
 }
 
@@ -423,171 +434,102 @@ template<typename Item>
 Node<Item>* BinarySearchTree<Item>::remove(Node<Item>* node, Item item) {
 
 	//////////////////////////////
-	//root = remove(root, item);//
+	/*void BinarySearchTree<Item>::remove(Item item) {
+		root = remove(root, item);
+	}*/
 	//////////////////////////////
 
-	if (node == nullptr)
-		return false;
+	if (root == nullptr) {
+		return nullptr;
+	}
 
-	if (node->item() == item) {
-		if (node->right() == nullptr && node->left == nullptr) {
-			delete node;
-			return nullptr;
-		}
-		else {
-			return node;
-		}
-		//IF (ROOT){}
+	//case 1-1
+	if (root->left() == nullptr && root->right() == nullptr) {
+		delete root;
+		return nullptr;
+	}
 
-		return node;
+	//case 1-2
+	if (node->left() == nullptr && node->right() == nullptr && node->item() == item) {
+
+		delete node;
+		return root;
+	}
+
+
+
+
+
+
+	// case 2-1 left
+	if (node->right() == nullptr && node->left() != nullptr && node->item() == item) {
+		Node<Item>* newNode = node->left();
+		delete node;
+		return newNode;
+	}
+
+	// case 2-1 right
+	if (node->left() == nullptr && node->right() != nullptr && node->item() ==item) {
+		Node<Item>* newNode = node->right();
+		delete node;
+		return newNode;
+	}
+
+	if (node->left() != nullptr) {
+		if (node->left()->item() != item) {
+			node->left(remove(node->left(), item));
+		}
 	}
 
 	if (node->right() != nullptr) {
-		node->right() = remove(node->right(), item);
-
-		if(node->right() == nullptr){
-			return node;
-			
+		if (node->right()->item() != item) {
+			node->right(remove(node->right(), item));
 		}
 	}
 
-	/*if (node->left() != nullptr) {
-		bool answer = search(node->left(), item);
-		if (answer) {
-			return answer;
-		}
-	}*/
 
 
 
 
-	return nullptr;
+
+
+	//SEARCH 
+
+	//if (node == nullptr)
+	//	return false;
+
+	//if (node->item() == item) {
+	//	return true;
+	//}
+
+	//if (node->left() != nullptr) {
+	//	bool answer = search(node->left(), item);
+	//	if (answer) {
+	//		return answer;
+	//	}
+	//}
+
+	//if (node->right() != nullptr) {
+	//	bool answer = search(node->right(), item);
+	//	if (answer) {
+	//		return answer;
+	//	}
+	//}
+
+
+
+
+
+
+
+
+
+
+
+
+	//delete this later
+	return node;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// MMXM
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

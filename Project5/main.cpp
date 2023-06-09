@@ -21,7 +21,7 @@ int main() {
 
 			cout << bst.empty() << endl;	// 1
 			cout << bst.height() << endl;	// 0
-			cout << endl;
+			//cout << endl;
 			break;
 		}
 		case 1: {
