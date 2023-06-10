@@ -200,10 +200,6 @@ void BinarySearchTree<Item>::preorder(Node<Item>* node, std::function<void(Node<
 // to the rules of the BST.  
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
-	//node is root!////////////
-
-	//root = insert(root, item);////////
-
 
 	if (node == nullptr) {
 		node = new Node<Item>;
@@ -236,30 +232,6 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 		insert(node->right(), item);
 		return node;
 	}
-	
-	//if (node == nullptr) {
-	//	node = new Node<Item>(item, nullptr, nullptr);
-	//	return node;
-	//}
-	//if (item == node->item()) {
-	//	return node;
-	//}
-	//if (item < node->item()) {
-	//	insert(node->left(), item);
-
-
-
-
-	//	return node;
-	//}
-	//else if (item > node->item()) {
-	//	insert(node->right(), item);
-
-
-
-
-	//	return node;
-	//}
 
 	return root;
 }
@@ -333,16 +305,13 @@ template<typename Item>
 Node<Item>* BinarySearchTree<Item>::min(Node<Item>* node) const {
 
 	if (node == nullptr)
-		return nullptr;
-
-	if (node->left() != nullptr) {
-		return min(node->left());
-	}
+		return node;
 
 	if (node->left() == nullptr) {
 		return node;
 	}
 
+	return min(node->left());
 }
 
 // BinarySearchTree<Item>::max recursively obtain the node with the minimum item
@@ -350,16 +319,13 @@ template<typename Item>
 Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 
 	if (node == nullptr)
-		return nullptr;
-
-	if (node->right() != nullptr) {
-		return max(node->right());
-	}
+		return node;
 
 	if (node->right() == nullptr) {
 		return node;
 	}
 
+	return max(node->right());
 }
 
 // BinarySearchTree<Item>::printTree
@@ -382,12 +348,11 @@ Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 template<typename Item>
 void BinarySearchTree<Item>::printTree(Node<Item>* node, int space) const {
 
-	//static const int maxHeight = height(node) +1;  //this should be a pointer instead i think. new/delete
 	if (node == nullptr) {
 		return;
 	}
 
-	space = space + 3;
+	space = space + 4;
 
 	if (node->right() != nullptr) {
 		printTree(node->right(), space);
@@ -433,33 +398,21 @@ void BinarySearchTree<Item>::printTree(Node<Item>* node, int space) const {
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::remove(Node<Item>* node, Item item) {
 
-	//////////////////////////////
-	/*void BinarySearchTree<Item>::remove(Item item) {
-		root = remove(root, item);
-	}*/
-	//////////////////////////////
+	//////////////////////////////////////////////////////
+	//void BinarySearchTree<Item>::remove(Item item) {  //
+	//	root = remove(root, item);                   }  //
+	//////////////////////////////////////////////////////
 
-	if (root == nullptr) {
+	// case null root
+	if (node == nullptr) {
 		return nullptr;
 	}
 
-	//case 1-1
-	if (root->left() == nullptr && root->right() == nullptr) {
-		delete root;
-		return nullptr;
-	}
-
-	//case 1-2
+	//case 1-1 and 1-2, leaf no childs
 	if (node->left() == nullptr && node->right() == nullptr && node->item() == item) {
-
-		delete node;
-		return root;
+		node = nullptr;
+		return nullptr;
 	}
-
-
-
-
-
 
 	// case 2-1 left
 	if (node->right() == nullptr && node->left() != nullptr && node->item() == item) {
@@ -475,59 +428,26 @@ Node<Item>* BinarySearchTree<Item>::remove(Node<Item>* node, Item item) {
 		return newNode;
 	}
 
+	// case 3  //NOTT WORKING
+	if (node->right() != nullptr && node->left() != nullptr && node->item() == item) {
+		node->item(min(node->right())->item());
+		node->right(remove(node->right(), item));
+	}
+
+	//traverse left
 	if (node->left() != nullptr) {
-		if (node->left()->item() != item) {
 			node->left(remove(node->left(), item));
-		}
 	}
 
+	//traverse right
 	if (node->right() != nullptr) {
-		if (node->right()->item() != item) {
 			node->right(remove(node->right(), item));
-		}
 	}
 
 
 
 
-
-
-
-	//SEARCH 
-
-	//if (node == nullptr)
-	//	return false;
-
-	//if (node->item() == item) {
-	//	return true;
-	//}
-
-	//if (node->left() != nullptr) {
-	//	bool answer = search(node->left(), item);
-	//	if (answer) {
-	//		return answer;
-	//	}
-	//}
-
-	//if (node->right() != nullptr) {
-	//	bool answer = search(node->right(), item);
-	//	if (answer) {
-	//		return answer;
-	//	}
-	//}
-
-
-
-
-
-
-
-
-
-
-
-
-	//delete this later
+	//if nothing was deleted
 	return node;
 }
 
