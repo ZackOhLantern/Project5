@@ -204,12 +204,7 @@ int main() {
 			bst.insert(10);
 			bst.insert(20);
 			bst.insert(22);
-			//
-			//bst.printTree();
-			//std::cout << endl << "................" << endl;
-			//bst.remove(8);
-			//bst.printTree();
-			//
+
 			bst.remove(20); // This implementation uses the right sub tree
 							// Your tree will appear slightly differently if you
 							// use the left subtree.

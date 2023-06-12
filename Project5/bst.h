@@ -408,43 +408,45 @@ Node<Item>* BinarySearchTree<Item>::remove(Node<Item>* node, Item item) {
 		return nullptr;
 	}
 
+	//traverse left IF SMALLER
+	if (node->left() != nullptr) {
+		if (node->item() > item) {
+		node->left(remove(node->left(), item));
+		}
+	}
+
+	//traverse right IF BIGGER
+	if (node->right() != nullptr) {
+		if (node->item() < item) {
+			node->right(remove(node->right(), item));
+		}
+	}
+
 	//case 1-1 and 1-2, leaf no childs
 	if (node->left() == nullptr && node->right() == nullptr && node->item() == item) {
-		node = nullptr;
+		delete node;
 		return nullptr;
 	}
 
-	// case 2-1 left
+	// case 2-1 left, one child
 	if (node->right() == nullptr && node->left() != nullptr && node->item() == item) {
 		Node<Item>* newNode = node->left();
 		delete node;
 		return newNode;
 	}
 
-	// case 2-1 right
-	if (node->left() == nullptr && node->right() != nullptr && node->item() ==item) {
+	// case 2-1 right, one child
+	if (node->left() == nullptr && node->right() != nullptr && node->item() == item) {
 		Node<Item>* newNode = node->right();
 		delete node;
 		return newNode;
 	}
 
-	// case 3  //NOTT WORKING
+	// case 3, node has 2 children + match
 	if (node->right() != nullptr && node->left() != nullptr && node->item() == item) {
 		node->item(min(node->right())->item());
-		node->right(remove(node->right(), item));
+		node->right(remove(node->right(), node->item()));
 	}
-
-	//traverse left
-	if (node->left() != nullptr) {
-			node->left(remove(node->left(), item));
-	}
-
-	//traverse right
-	if (node->right() != nullptr) {
-			node->right(remove(node->right(), item));
-	}
-
-
 
 
 	//if nothing was deleted
