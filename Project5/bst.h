@@ -166,9 +166,9 @@ void BinarySearchTree<Item>::printTree() const {
 //		void proc(Node<Item> * n){std::cout << n->item() << " "; }
 template<typename Item>
 void BinarySearchTree<Item>::inorder(Node<Item>* node, std::function<void(Node<Item>*)> proc) {
+	//L N R
 	if (node == nullptr)
 		return;
-
 	inorder(node->left(), proc);
 	proc(node);
 	inorder(node->right(), proc);
@@ -177,7 +177,7 @@ void BinarySearchTree<Item>::inorder(Node<Item>* node, std::function<void(Node<I
 
 template<typename Item>
 void BinarySearchTree<Item>::postorder(Node<Item>* node, std::function<void(Node<Item>*)> proc) {
-
+	// L R N
 	if (node == nullptr)
 		return;
 	postorder(node->left(), proc);
@@ -187,9 +187,9 @@ void BinarySearchTree<Item>::postorder(Node<Item>* node, std::function<void(Node
 }
 template<typename Item>
 void BinarySearchTree<Item>::preorder(Node<Item>* node, std::function<void(Node<Item>*)> proc) {
+	//N L R
 	if (node == nullptr)
 		return;
-
 	proc(node);
 	preorder(node->left(), proc);
 	preorder(node->right(), proc);
@@ -201,16 +201,17 @@ void BinarySearchTree<Item>::preorder(Node<Item>* node, std::function<void(Node<
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 
+	//if empty, create node
 	if (node == nullptr) {
 		node = new Node<Item>;
 		node->item(item);
 		return node;
 	}
-
+	//already have item, do nothing
 	if (node->item() == item) {
 		return node;
 	}
-
+	//if less than, insert on left
 	if (node->item() > item) {
 		if (node->left() == nullptr) 
 		{
@@ -221,7 +222,7 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 		insert(node->left(), item);
 		return node;
 	}
-
+	//if greater than, insert on right
 	if (node->item() < item) {
 		if (node->right() == nullptr)
 		{
@@ -240,25 +241,29 @@ Node<Item>* BinarySearchTree<Item>::insert(Node<Item>* node, Item item) {
 template<typename Item>
 bool BinarySearchTree<Item>::search(Node<Item>* node, Item item) const {
 
-
+	//empty bst
 	if (node == nullptr)
 		return false;
-
+	//found item
 	if (node->item() == item) {
 		return true;
 	}
-
+	//traverse left IF SMALLER
 	if (node->left() != nullptr) {
-		bool answer = search(node->left(), item);
-		if (answer) {
-			return answer;
+		if (node->item() > item) {
+			bool answer = search(node->left(), item);
+			if (answer) {
+				return answer;
+			}
 		}
 	}
-
+	//traverse right IF BIGGER
 	if (node->right() != nullptr) {
-		bool answer = search(node->right(), item);
-		if (answer) {
-			return answer;
+		if (node->item() < item) {
+			bool answer = search(node->right(), item);
+			if (answer) {
+				return answer;
+			}
 		}
 	}
 
@@ -274,26 +279,28 @@ int	BinarySearchTree<Item>::height(Node<Item>* node) const {
 	int counter = 1;
 	int leftanswer = 0;
 	int rightanswer = 0;
-
+	//empty bst
 	if (node == nullptr) {
 		return 0;
 	}
-
+	//traverse left
 	if (node->right() != nullptr) {
 		rightanswer = counter + height(node->right());
 	}
-
+	//traverse right
 	if (node->left() != nullptr) {
 		leftanswer =  counter + height(node->left());
 	}
 
+	//no childs
 	if ((node->left() == nullptr) && (node->right() == nullptr)) {
 		return 1;
 	}
-
+	//left bigger
 	if (leftanswer < rightanswer) {
 		return rightanswer;
 	}
+	//right bigger
 	if (leftanswer > rightanswer) {
 		return leftanswer;
 	}
@@ -303,28 +310,28 @@ int	BinarySearchTree<Item>::height(Node<Item>* node) const {
 // BinarySearchTree<Item>::min recursively obtain the node with the minimum item
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::min(Node<Item>* node) const {
-
+	//empty bst
 	if (node == nullptr)
 		return node;
-
+	//found
 	if (node->left() == nullptr) {
 		return node;
 	}
-
+	//recursion
 	return min(node->left());
 }
 
 // BinarySearchTree<Item>::max recursively obtain the node with the minimum item
 template<typename Item>
 Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
-
+	//empty bst
 	if (node == nullptr)
 		return node;
-
+	//found
 	if (node->right() == nullptr) {
 		return node;
 	}
-
+	//recursion
 	return max(node->right());
 }
 
@@ -347,23 +354,23 @@ Node<Item>* BinarySearchTree<Item>::max(Node<Item>* node) const {
 // not related to the actuall recursion.  
 template<typename Item>
 void BinarySearchTree<Item>::printTree(Node<Item>* node, int space) const {
-
+	//empty bst
 	if (node == nullptr) {
 		return;
 	}
-
+	//spacing per level
 	space = space + 4;
-
+	//travers right
 	if (node->right() != nullptr) {
 		printTree(node->right(), space);
 	}
-
+	//print spacing
 	for (int i = 0; i < (space); i++) {
 			std::cout << " ";
 	}
-
+	//print item
 	std::cout << node->item() << std::endl;
-
+	//traverse left
 	if (node->left() != nullptr) {
 		printTree(node->left(), space);
 	}
